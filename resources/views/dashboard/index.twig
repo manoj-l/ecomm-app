@@ -1,0 +1,102 @@
+{% extends "base.twig" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="resources/css/high-charts.css" >
+{% endblock %}
+
+{% block content %}
+
+    <h2 class="mt-4">Sales Dashboard</h2>
+    <p>Below are the summary of sales and other statistics:</p>
+    <div class="card">
+        <div class="card-header">
+            <dt>Summary</dt>
+        </div>
+         <ul class="list-group list-group-flush">
+            <li class="list-group-item">Total number of orders: <dt>{{ orderCount }}</dt></li>
+            <li class="list-group-item">Total sum of revenue:  <dt>{{ revenueSEK|format_currency('SEK') }}</dt></li>
+            <li class="list-group-item">Total number of customers:  <dt>{{ customersCount }}</dt></li>
+        </uk>
+    </div>
+    <div class="card mt-4">
+        <div class="card-header">
+            <dt>Summary</dt>
+        </div>
+        <div class="card-body">
+            <form class="row g-3">
+                <p>
+                    Filter by date range
+                    <small class="text-muted">(To date need to be larger than form date, if not date will reset in the server end to default)</small>
+                </p>
+                <div class="col">
+                    <input type="date" id="from-date" name="from-date" value="{{ selectedDays.fromDate }}" class="form-control" placeholder="From Date" aria-label="From Date">
+                </div>
+                <div class="col">
+                    <input type="date" id="to-date" name="to-date" value="{{ selectedDays.toDate }}" class="form-control" placeholder="To Date" aria-label="To Date">
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+            <figure id="figure" class="highcharts-figure mt-3">
+                <div id="figure-chart"></div>
+            
+                <table id="datatable">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>New Orders</th>
+                            <th>New Customers</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in chartData %}
+                            <tr>
+                                <th>{{ item.date }}</th>
+                                <td>{{ item.newOrderCount }}</td>
+                                <td>{{ item.newCustomerCount }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </figure>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+
+    <script type="text/javascript">
+        Highcharts.chart('figure-chart', {
+            data: {
+                table: 'datatable'
+            },
+            chart: {
+                scrollablePlotArea: {
+                    minWidth: 700
+                }
+            },
+            title: {
+                text: 'New orders and new customers per each day'
+            },
+            yAxis: {
+                allowDecimals: false,
+                title: {
+                    text: 'Numbers'
+                }
+            },
+           tooltip: {
+                shared: true,
+                crosshairs: true
+            }
+        });
+    </script>
+    
+   
+{% endblock %}
