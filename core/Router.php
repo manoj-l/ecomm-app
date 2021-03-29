@@ -52,9 +52,7 @@ class Router
     {
         $uri = $_SERVER['REQUEST_URI'];
         $url = '';
-
-       
-
+        
         if ($uri != '' && strpos($uri, '?')) {
             $url = explode('?', $uri)[0];
         } else {
