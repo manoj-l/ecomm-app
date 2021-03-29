@@ -16,3 +16,6 @@ The [Router](Core/Router.php) translates URLs into controllers and actions.You c
 $router->get('/dashboard', 'Dashboard@index');
 $router->post('/order', 'Order@add');
 ```
+
+### License
+MIT License
