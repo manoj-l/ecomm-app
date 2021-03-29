@@ -26,16 +26,19 @@
             <form class="row g-3">
                 <p>
                     Filter by date range
-                    <small class="text-muted">(To date need to be larger than form date, if not date will reset in the server end to default)</small>
+                    <small class="text-muted">(to date need to be larger than the form date, if not date will reset in the server end to default)</small>
                 </p>
-                <div class="col">
+                <div class="col form-floating">
+                   
                     <input type="date" id="from-date" name="from-date" value="{{ selectedDays.fromDate }}" class="form-control" placeholder="From Date" aria-label="From Date">
+                    <label for="from-date">From Date</label>
                 </div>
-                <div class="col">
+                <div class="col form-floating">
                     <input type="date" id="to-date" name="to-date" value="{{ selectedDays.toDate }}" class="form-control" placeholder="To Date" aria-label="To Date">
+                    <label for="to-date">To date</label>
                 </div>
                 <div class="col">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
                 </div>
             </form>
             <figure id="figure" class="highcharts-figure mt-3">
